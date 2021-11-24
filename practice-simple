@@ -1,0 +1,31 @@
+#!/bin/bash
+
+git clone https://github.com/p81061473525/docker 
+cd docker 
+chmod u+x allinone.sh
+./allinone.sh
+########################################
+# 教學來自 https://www.runoob.com/docker/docker-dockerfile.html
+#######################################
+cd ~
+mkdir dockerfile 
+cd dockerfile 
+echo "FROM nginx" >> dockerfile
+echo "RUN echo '这是一个本地构建的nginx镜像' > /usr/share/nginx/html/index.html" >> dockerfile
+docker build -t nginx:v3 .
+echo "##########" >> 1.txt 
+docker images >> 1.txt
+docker run --name myweb -p 80:80 -d nginx:v3
+curl http://127.0.0.1 >> 1.txt
+
+###################################
+# 練習
+###################################
+cd ~
+cd dockerfile 
+echo "FROM nginx" > dockerfile
+echo "RUN echo '我是阿成!!' > /usr/share/nginx/html/index.html" > dockerfile
+docker build -t nginx:cheng .
+docker images >> 1.txt 
+docker run --name myweb -p 8081:80 -d nginx:cheng
+curl http://127.0.0.1:8081 >> 1.txt
